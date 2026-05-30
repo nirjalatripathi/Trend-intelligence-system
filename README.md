@@ -1,7 +1,7 @@
 # Trend Intelligence System
 
 A self-hosted workflow automation platform for building trend intelligence pipelines using [n8n](https://n8n.io/). This project runs n8n in Docker so you can connect APIs, schedule jobs, and automate data collection without writing a full backend from scratch.
-
+image.png
 ---
 
 ## What This Project Does
