@@ -1,7 +1,23 @@
 # Trend Intelligence System
 
 A self-hosted workflow automation platform for building trend intelligence pipelines using [n8n](https://n8n.io/). This project runs n8n in Docker so you can connect APIs, schedule jobs, and automate data collection without writing a full backend from scratch.
-image.png
+
+---
+
+## Workflow Architecture
+
+The main n8n workflow collects trends from multiple sources, processes them with JavaScript, and appends the results to Google Sheets.
+
+![Trend Intelligence System workflow](./assets/workflow-architecture.png)
+
+| Stage | What happens |
+|-------|----------------|
+| **Trigger** | Schedule Trigger runs the workflow on a set interval |
+| **Data ingestion** | Four parallel branches fetch Online Khabar, NY Times RSS, Google Trends, and YouTube; each response is converted from XML/RSS to JSON |
+| **Merge** | Merge (append) combines all four sources into one dataset |
+| **Processing** | Three Code (JavaScript) nodes parse, filter, and rank trend items |
+| **Output** | Append row in sheet writes the final results to Google Sheets |
+
 ---
 
 ## What This Project Does
@@ -82,6 +98,8 @@ docker compose logs -f n8n
 
 ```
 trend-intelligence-system/
+├── assets/
+│   └── workflow-architecture.png  # Workflow diagram (README)
 ├── docker-compose.yml    # n8n service definition
 ├── .gitignore            # Ignores runtime data and secrets
 ├── README.md             # This file
@@ -96,6 +114,7 @@ trend-intelligence-system/
 |----------------|----------------------|
 | `docker-compose.yml` | `n8n_data/` |
 | `README.md` | `.env` |
+| `assets/` | |
 | `.gitignore` | |
 
 **Important:** Workflows and API keys you create inside n8n are stored in `n8n_data/`. Export important workflows from the n8n UI if you want them in version control.
